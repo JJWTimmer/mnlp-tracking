@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+  <Document>
+    <name>Collar7854</name>
+    <description>GPS Plus - http://www.vectronic-aerospace.com</description>
+    <Style id="FirstFix">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/square.png</href>
+        </Icon>
+        <color>ff00ff00</color>
+        <scale>1</scale>
+        <hotSpot x="0.5" xunits="fraction" y="0.5" yunits="fraction"></hotSpot>
+      </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+      </LabelStyle>
+      <BalloonStyle>
+        <displayMode>hide</displayMode>
+      </BalloonStyle>
+    </Style>
+    <Style id="LastFix">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/square.png</href>
+        </Icon>
+        <color>ff0000ff</color>
+        <scale>1</scale>
+        <hotSpot x="0.5" xunits="fraction" y="0.5" yunits="fraction"></hotSpot>
+      </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+      </LabelStyle>
+      <BalloonStyle>
+        <displayMode>hide</displayMode>
+      </BalloonStyle>
+    </Style>
+    <Style id="FixDot">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+        </Icon>
+        <color>FF00FFFF</color>
+        <scale>0.7</scale>
+        <hotSpot x="0.5" xunits="fraction" y="0.5" yunits="fraction"></hotSpot>
+      </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+      </LabelStyle>
+      <BalloonStyle>
+        <textColor>FF000000</textColor>
+        <bgColor>FFFFF0FF</bgColor>
+        <text><![CDATA[<font size=+1><b><u>Record Info</u></b><br></font>]]>$[description]</text>
+      </BalloonStyle>
+    </Style>
+    <Placemark>
+      <name>Track</name>
+      <visibility>1</visibility>
+      <open>0</open>
+      <Style>
+        <LineStyle>
+          <color>ff00ffff</color>
+        </LineStyle>
+        <PolyStyle>
+          <color>3f00ff00</color>
+        </PolyStyle>
+      </Style>
+      <MultiGeometry>
+        <LineString>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>
+          13.5256819,52.4308841,91
+          13.5257619,52.4308672,107
+          13.5256218,52.4308161,88
+          13.5260381,52.4305963,179
+          13.5255951,52.4307720,59
+          13.5256671,52.4307891,70
+          13.5256133,52.4308958,82
+          13.5257242,52.4308810,85
+          13.5256094,52.4308580,72
+          13.5256350,52.4307471,65
+          13.5257637,52.4308965,90
+          35.3504941,-1.4089209,1667
+          35.3514838,-1.4092123,1657
+          35.3517813,-1.4121326,1662
+          35.3513940,-1.4129633,1668
+          35.3549119,-1.4155331,1662
+          35.3572549,-1.4208880,1658
+          35.3557466,-1.4231677,1656
+          35.3521551,-1.4229330,1654
+          35.3472327,-1.4220796,1668
+          35.3453046,-1.4297448,1646
+          35.3410830,-1.4303534,1635
+          35.3400398,-1.4244978,1653
+          35.3406521,-1.4209790,1656
+          </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>First Position Mark</name>
+      <visibility>1</visibility>
+      <styleUrl>#FirstFix</styleUrl>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256819, 52.4308841, 91</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Last Position Mark</name>
+      <visibility>1</visibility>
+      <styleUrl>#LastFix</styleUrl>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>35.3406521, -1.4209790, 1656</coordinates>
+      </Point>
+    </Placemark>
+    <Folder>
+      <name>Fixes</name>
+      <visibility>1</visibility>
+      <Placemark>
+        <name>Fix #1</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-09T20:00:13Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #1</b><br>Date: 2010-08-09<br>Time: 23:00:13+03:00<br>Altitude: 91m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 19.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256819, 52.4308841, 91</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #2</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-09T21:00:11Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #2</b><br>Date: 2010-08-10<br>Time: 00:00:11+03:00<br>Altitude: 107m<br>Status: 3D Nav, validated<br>PDOP: 3.2<br>Sats used: 0<br>Temperature: 18.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5257619, 52.4308672, 107</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #3</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-09T22:00:25Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #3</b><br>Date: 2010-08-10<br>Time: 01:00:25+03:00<br>Altitude: 88m<br>Status: 3D Nav, validated<br>PDOP: 3.4<br>Sats used: 0<br>Temperature: 17.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256218, 52.4308161, 88</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #4</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-09T23:00:12Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #4</b><br>Date: 2010-08-10<br>Time: 02:00:12+03:00<br>Altitude: 179m<br>Status: 3D Nav, validated<br>PDOP: 1.8<br>Sats used: 0<br>Temperature: 17.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5260381, 52.4305963, 179</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #5</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T00:00:41Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #5</b><br>Date: 2010-08-10<br>Time: 03:00:41+03:00<br>Altitude: 59m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 17.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5255951, 52.4307720, 59</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #6</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T01:00:24Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #6</b><br>Date: 2010-08-10<br>Time: 04:00:24+03:00<br>Altitude: 70m<br>Status: 3D Nav, validated<br>PDOP: 2.0<br>Sats used: 0<br>Temperature: 16.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256671, 52.4307891, 70</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #7</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T02:00:12Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #7</b><br>Date: 2010-08-10<br>Time: 05:00:12+03:00<br>Altitude: 82m<br>Status: 3D Nav, validated<br>PDOP: 2.0<br>Sats used: 0<br>Temperature: 15.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256133, 52.4308958, 82</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #8</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T03:00:47Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #8</b><br>Date: 2010-08-10<br>Time: 06:00:47+03:00<br>Altitude: 85m<br>Status: 3D Nav, validated<br>PDOP: 1.8<br>Sats used: 0<br>Temperature: 15.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5257242, 52.4308810, 85</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #9</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T04:00:47Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #9</b><br>Date: 2010-08-10<br>Time: 07:00:47+03:00<br>Altitude: 72m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 15.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256094, 52.4308580, 72</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #10</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T05:00:14Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #10</b><br>Date: 2010-08-10<br>Time: 08:00:14+03:00<br>Altitude: 65m<br>Status: 3D Nav, validated<br>PDOP: 3.4<br>Sats used: 0<br>Temperature: 17.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5256350, 52.4307471, 65</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #11</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2010-08-10T06:00:48Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #11</b><br>Date: 2010-08-10<br>Time: 09:00:48+03:00<br>Altitude: 90m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 18.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>13.5257637, 52.4308965, 90</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #12</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:13:41Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #12</b><br>Date: 2011-05-12<br>Time: 16:13:41+03:00<br>Altitude: 1667m<br>Status: 3D Nav, not val.<br>PDOP: 3.4<br>Sats used: 0<br>Temperature: 30.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3504941, -1.4089209, 1667</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #13</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:15:24Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #13</b><br>Date: 2011-05-12<br>Time: 16:15:24+03:00<br>Altitude: 1657m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3514838, -1.4092123, 1657</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #14</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:20:31Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #14</b><br>Date: 2011-05-12<br>Time: 16:20:31+03:00<br>Altitude: 1662m<br>Status: 3D Nav, not val.<br>PDOP: 3.2<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3517813, -1.4121326, 1662</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #15</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:25:16Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #15</b><br>Date: 2011-05-12<br>Time: 16:25:16+03:00<br>Altitude: 1668m<br>Status: 3D Nav, not val.<br>PDOP: 3.4<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3513940, -1.4129633, 1668</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #16</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:30:42Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #16</b><br>Date: 2011-05-12<br>Time: 16:30:42+03:00<br>Altitude: 1662m<br>Status: 3D Nav, validated<br>PDOP: 1.8<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3549119, -1.4155331, 1662</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #17</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:36:29Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #17</b><br>Date: 2011-05-12<br>Time: 16:36:29+03:00<br>Altitude: 1658m<br>Status: 3D Nav, not val.<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3572549, -1.4208880, 1658</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #18</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:41:48Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #18</b><br>Date: 2011-05-12<br>Time: 16:41:48+03:00<br>Altitude: 1656m<br>Status: 3D Nav, validated<br>PDOP: 1.8<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3557466, -1.4231677, 1656</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #19</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:45:12Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #19</b><br>Date: 2011-05-12<br>Time: 16:45:12+03:00<br>Altitude: 1654m<br>Status: 3D Nav, validated<br>PDOP: 1.6<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3521551, -1.4229330, 1654</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #20</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:50:02Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #20</b><br>Date: 2011-05-12<br>Time: 16:50:02+03:00<br>Altitude: 1668m<br>Status: 3D Nav, validated<br>PDOP: 2.2<br>Sats used: 0<br>Temperature: 32.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3472327, -1.4220796, 1668</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #21</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T13:55:15Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #21</b><br>Date: 2011-05-12<br>Time: 16:55:15+03:00<br>Altitude: 1646m<br>Status: 3D Nav, validated<br>PDOP: 3.2<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3453046, -1.4297448, 1646</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #22</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T14:00:11Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #22</b><br>Date: 2011-05-12<br>Time: 17:00:11+03:00<br>Altitude: 1635m<br>Status: 3D Nav, validated<br>PDOP: 3.6<br>Sats used: 0<br>Temperature: 31.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3410830, -1.4303534, 1635</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #23</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T14:05:15Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #23</b><br>Date: 2011-05-12<br>Time: 17:05:15+03:00<br>Altitude: 1653m<br>Status: 3D Nav, validated<br>PDOP: 1.8<br>Sats used: 0<br>Temperature: 32.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3400398, -1.4244978, 1653</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fix #24</name>
+        <visibility>1</visibility>
+        <styleUrl>#FixDot</styleUrl>
+        <TimeStamp>
+          <when>2011-05-12T14:10:12Z</when>
+        </TimeStamp>
+        <description><![CDATA[<i><b>Collar 7854 - Fix #24</b><br>Date: 2011-05-12<br>Time: 17:10:12+03:00<br>Altitude: 1656m<br>Status: 3D Nav, validated<br>PDOP: 1.6<br>Sats used: 0<br>Temperature: 33.0&deg;C<br>]]></description>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>35.3406521, -1.4209790, 1656</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <LookAt>
+      <longitude>35.3406521</longitude>
+      <latitude>-1.4209790</latitude>
+      <range>10000.0</range>
+      <tilt>0</tilt>
+      <heading>0</heading>
+    </LookAt>
+  </Document>
+</kml>
