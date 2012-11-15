@@ -1,0 +1,1 @@
+"""This module should represent an .SMS file parser"""class SmsParser(object):    def __init__(self, sms):        self.sms = sms        self.lat = 0.0        self.lon = 0.0        self.alt = 0.0        self.temp = 0.0        self.collar = None        self.isValid = False                self._process()        def _process(self):        pass

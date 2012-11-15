@@ -1,0 +1,1 @@
+0 * * * * cd ~/current/mnlp/ && python manage.py mailjob
