@@ -1,0 +1,8 @@
+local_settings.py
+*.pyc
+.gitignore
+.idea/
+mnlp.wpr
+mnlp.wpu
+README.md
+LICENSE

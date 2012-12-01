@@ -1,2 +1,7 @@
-*.log*.pot*.pyclocal_settings.py
-mailtest
+.dotcloud/
+*.log
+*.pot
+*.pyc
+local_settings.py
+mnlp.wpr
+mnlp.wpu

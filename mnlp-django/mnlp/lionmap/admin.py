@@ -1,1 +1,0 @@
-from django.contrib.gis import adminfrom models import Lion, Collar, Positionadmin.site.register(Lion)admin.site.register(Collar)admin.site.register(Position, admin.OSMGeoAdmin)

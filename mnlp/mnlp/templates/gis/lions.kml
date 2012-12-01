@@ -1,0 +1,18 @@
+{% extends "gis/kml/base.kml" %}
+{% block styles %}
+
+{% endblock %}
+
+{% block placemarks %}
+  {% for name, ts, pos in lions %}
+    <Placemark>
+      <name>{{ name }}</name>
+      <description><![CDATA[{{ ts|date:"c" }}]]></description>
+       <TimeStamp>
+          <when>{{ ts }}</when>
+        </TimeStamp>
+      {{ pos.0.kml|safe }}
+    </Placemark>
+  {% endfor %}
+{% endblock %}
+

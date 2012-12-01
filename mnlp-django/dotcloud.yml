@@ -1,8 +1,0 @@
-www:
-  type: python
-  environment:
-    POP_SSL: enabled
-    POP_SERVER: pop.gmail.com
-    POP_PORT: 995
-data:
-  type: postgis

@@ -1,0 +1,2 @@
+MAILTO=""
+30 * * * * cd ~/current/mnlp/ && bash -lc "python manage.py dropboxjob"

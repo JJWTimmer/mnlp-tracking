@@ -1,6 +1,0 @@
-# Configure the POP3 server #
-Edit the dotcloud.yml file to set the server and port, and if the server uses SSL (set to 'enabled', any other value is no)
-In the dotcloud console set the username and password:
-
-dotcloud env set POP_USER=username
-dotcloud env set POP_PASSWORD=secret

@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+{% if CURRENT_DROPBOX_USER %}
+<p>Application is currently linked with account of: {{ CURRENT_DROPBOX_USER }}</p>
+{% endif %}
+
+<p>First follow the link and click Accept to link to your Dropbox account. Then come back to this window and click Continue. This changes the previous linked account.</p>
+<p>Warning: doing so triggers a complete reprocessing of all .kml/.kmz files!</p>
+
+<p><a href="{{ DROPBOX_URL }}" target="_blank">LINK TO DROPBOX</a></p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="link_account" />
+    <input type="submit" name="apply" value="Continue linking..." />
+</form>
+
+{% endblock %}
