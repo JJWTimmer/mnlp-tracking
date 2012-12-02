@@ -9,8 +9,9 @@ DEBUG = True
 #TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DEBUG = True
 
+#Overridden in hidden settings
 ADMINS = (
-    # ('Jasper Timmer', 'info@y3pp3r.nl'),
+    ('John Doe', 'john@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -83,6 +84,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+#Overridden in hidden settings
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'hfor^73w_wi)!0knh$#fsu^4)ktp&amp;lr23-gvcq^$l70x4mj94e'
 
@@ -160,6 +162,12 @@ LOGGING = {
         },
     }
 }
+
+
+try:
+    from hidden_settings import *
+except ImportError:
+    pass
 
 try:
     from local_settings import *
