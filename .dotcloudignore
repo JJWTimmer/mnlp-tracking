@@ -6,3 +6,5 @@ mnlp.wpr
 mnlp.wpu
 README.md
 LICENSE
+static/heatmaps/*.png
+static/heatmaps/*.kml

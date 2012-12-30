@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<GroundOverlay>
+	<name>Naamloos Beeldoverlay</name>
+	<Icon>
+		<href>foo.png</href>
+	</Icon>
+	<gx:LatLonQuad>
+		<coordinates>
+			4.924413535001437,52.34507998067729,0 4.972300489883044,52.34507998067729,0 4.972300489883044,52.37432465185776,0 4.924413535001437,52.37432465185776,0 
+		</coordinates>
+	</gx:LatLonQuad>
+</GroundOverlay>
+</kml>

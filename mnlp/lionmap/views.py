@@ -7,6 +7,7 @@ from lionmap.models import Lion, Position
 from lionmap.forms import DateFilterForm
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 def kml(request, lion):
     dayago = datetime.now() - timedelta(days=1)
@@ -21,7 +22,8 @@ def kml(request, lion):
         collar__tracking__end__gte=datetime.now(),
         timestamp__gte=lowerbound,
         timestamp__lte=upperbound
-        ).kml()
+    ).kml()
+
     return render_to_kml("gis/placemarks.kml", {"places": positions})
 
 
@@ -68,3 +70,10 @@ def last_positions(request):
         print err
 
     return render_to_kml("gis/lions.kml", {"lions": positions})
+
+@login_required
+def retrieve_heatmap(request, file_name):
+    response = HttpResponse() # 200 OK
+    del response['content-type'] # We'll let the web server guess this.
+    response['X-Accel-Redirect'] = '/static/heatmaps/' + file_name
+    return response

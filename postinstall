@@ -3,6 +3,8 @@ python createdb.py
 python mnlp/manage.py syncdb --noinput
 python mnlp/manage.py migrate --noinput
 python mkadmin.py
-mkdir -p /home/dotcloud/data/media /home/dotcloud/volatile/static
+mkdir -p /home/dotcloud/data/media /home/dotcloud/volatile/static/heatmaps
 python mnlp/manage.py collectstatic --noinput
 crontab ~/current/jobs/crontab
+python mnlp/manage.py dropboxjob
+python mnlp/manage.py heatmapjob

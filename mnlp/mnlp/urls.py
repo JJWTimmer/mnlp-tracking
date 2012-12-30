@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^kml/lion/(?P<lion>\d+)/$', 'lionmap.views.kml'),
     url(r'^kml/last/$', 'lionmap.views.last_positions'),
     url(r'^full/$', 'lionmap.views.fullscreen'),
+    url(r'^heatmaps/(?P<file_name>.*)$', 'lionmap.views.retrieve_heatmap'),
 )

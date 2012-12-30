@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 from dropbox import client, session
 from django.core.management.base import NoArgsCommand
@@ -7,7 +6,7 @@ from lionmap.models import DropboxAccount
 
 
 class Command(NoArgsCommand):
-    help = 'Process for mnlp email processing'
+    help = 'Processes all new kml/kmz files in dropbox'
     can_import_settings = True
 
     def handle_noargs(self, **options):

@@ -1,2 +1,3 @@
 MAILTO=""
-30 * * * * cd ~/current/mnlp/ && bash -lc "python manage.py dropboxjob"
+00 * * * * cd ~/current/mnlp/ && bash -lc "python manage.py dropboxjob"
+05 * * * * cd ~/current/mnlp/ && bash -lc "python manage.py heatmapjob"
