@@ -2,7 +2,7 @@
 *.log
 *.pot
 *.pyc
-local_*
+local_settings.py
 hidden_settings.py
 mnlp.wpr
 mnlp.wpu
