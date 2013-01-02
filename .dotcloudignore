@@ -1,4 +1,4 @@
-local_settings.py
+local_*
 *.pyc
 .gitignore
 .idea/

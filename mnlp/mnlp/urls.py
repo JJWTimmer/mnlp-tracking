@@ -18,8 +18,18 @@ urlpatterns = patterns('',
 
     url(r'^$', 'lionmap.views.map'),
     url(r'^lions/$', 'lionmap.views.lions'),
+    url(r'^heatmaplions/$', 'lionmap.views.retrieve_heatmap_lions'),
     url(r'^kml/lion/(?P<lion>\d+)/$', 'lionmap.views.kml'),
     url(r'^kml/last/$', 'lionmap.views.last_positions'),
     url(r'^full/$', 'lionmap.views.fullscreen'),
+)
+
+try:
+    from local_urls import *
+    urlpatterns += debugpatterns
+except ImportError:
+    pass
+	
+urlpatterns += patterns('',
     url(r'^heatmaps/(?P<file_name>.*)$', 'lionmap.views.retrieve_heatmap'),
 )

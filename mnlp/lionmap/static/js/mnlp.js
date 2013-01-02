@@ -3,7 +3,7 @@ var TheMap = {
         map : null,
         map2 : null,
         lionLayers : [],
-        heatmapLayer : null,
+        heatmapLayers : [],
         selectControl : null,
         bounds : null
     },
@@ -258,7 +258,7 @@ var TheMap = {
     },
 
     heatmap : function() {
-        TheMap.data.map = new OpenLayers.Map('map_canvas2', {
+        TheMap.data.map2 = new OpenLayers.Map('map_canvas2', {
             controls: [
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.PanZoomBar(),
@@ -290,86 +290,42 @@ var TheMap = {
             // used to be {type: G_SATELLITE_MAP, numZoomLevels: 22}
         );
 
-        //TheMap.data.map.addLayer(osm);
-        TheMap.data.map.addLayers([osm, gphy, gmap, ghyb, gsat]);
+        TheMap.data.map2.addLayers([osm, gphy, gmap, ghyb, gsat]);
 
-        TheMap.data.bounds = new OpenLayers.Bounds();
+        var projWGS84 = new OpenLayers.Projection("EPSG:4326");
 
+		var extend = new OpenLayers.Bounds(35.14455174999947, -1.4807579817798406, 35.496114249999806, -1.3050287418975504)
+				.transform(projWGS84, TheMap.data.map2.getProjectionObject());
+		
+		var options = {
+			//numZoomLevels: 15,
+			isBaseLayer: false,
+			maxResolution: "auto",
+			resolutions: TheMap.data.map2.layers[0].resolutions,
+			projection: TheMap.data.map2.getProjectionObject(),
+			strategies: [new OpenLayers.Strategy.Fixed()],
+			displayInLayerSwitcher: true,
+			opacity: 1.0
+		};
+		
+		$.getJSON('/heatmaplions', function(data) {
+            $.each(data.lions, function(lionIndex) {
+                TheMap.data.heatmapLayers.push(new OpenLayers.Layer.Image(
+                    data.lions[lionIndex],
+                    "/heatmaps/"+data.lions[lionIndex]+".png",
+                    extend,
+                    new OpenLayers.Size(1, 1),
+                    options
+                ));
+            });
+            TheMap.data.map2.addLayers(TheMap.data.heatmapLayers);
+        });
 
-        center = TheMap.getLonLat(35.320333, -1.392895);
+        center = extend.getCenterLonLat();
 
         zoom = 12;
 
-        TheMap.data.map.setCenter(center, zoom);
-
-        //position color-ramp
-        var colors = ['#00FF00', '#0000FF', '#FF0000', '#01FFFE', '#FFA6FE', '#FFDB66', '#006401', '#010067', '#95003A', '#007DB5', '#FF00F6', '#FFEEE8', '#774D00', '#90FB92', '#0076FF', '#D5FF00', '#FF937E', '#6A826C', '#FF029D', '#FE8900', '#7A4782', '#7E2DD2', '#85A900', '#FF0056', '#A42400', '#00AE7E', '#683D3B', '#BDC6FF', '#263400', '#BDD393', '#00B917', '#9E008E', '#001544', '#C28C9F', '#FF74A3', '#01D0FF', '#004754', '#E56FFE', '#788231', '#0E4CA1', '#91D0CB', '#BE9970', '#968AE8', '#BB8800', '#43002C', '#DEFF74', '#00FFC6', '#FFE502', '#620E00', '#008F9C', '#98FF52', '#7544B1', '#B500FF', '#00FF78', '#FF6E41', '#005F39', '#6B6882', '#5FAD4E', '#A75740', '#A5FFD2', '#FFB167', '#009BFF', '#E85EBE'];
-
-        var i = null;
-        var getNextId = function() {
-            if (i === null) {
-                i = 0;
-            } else {
-                i++;
-            }
-            return i
-        }
-
-        var stylemap = new OpenLayers.StyleMap(
-            {
-                "default": new OpenLayers.Style(
-                {
-                    pointRadius: "${radius}",
-                    fillColor: colors[getNextId()],
-                    fillOpacity: 0.8,
-                    strokeColor: colors[getNextId()],
-                    strokeWidth: 2,
-                    strokeOpacity: 0.8
-                },
-                {
-                    context: {
-                        radius: 2
-                    }
-                })
-            }
-        );
-
-        var lionLayer = new OpenLayers.Layer.Vector(
-                'Lions',
-                {
-                    strategies: [new OpenLayers.Strategy.Fixed()],
-                    projection: TheMap.data.map.displayProjection,
-                    protocol: new OpenLayers.Protocol.HTTP({
-                        url: "/kml/last/",
-                        format: new OpenLayers.Format.KML({
-                            extractStyles: true,
-                            extractAttributes: true
-                        })
-                    }),
-                    styleMap: stylemap
-                }
-            );
-
-        var selectControl = new OpenLayers.Control.SelectFeature(lionLayer, {
-                hover: true,
-                clickout: true,
-                highlightOnly: true,
-                renderIntent: "temporary",
-                eventListeners: {
-                    //beforefeaturehighlighted: report,
-                    featureunhighlighted: TheMap.onFeatureUnHighlighted,
-                    featurehighlighted: TheMap.onFeatureHighlighted
-                }
-            });
-        //selectControl.events.register('featurehighlighted', null, TheMap.onFeatureHighlighted);
-
-        TheMap.data.lionLayers.push(lionLayer);
-        TheMap.data.selectControl = selectControl ;
-
-        TheMap.data.map.addLayers(TheMap.data.lionLayers);
-        TheMap.data.map.addControl(TheMap.data.selectControl);
-
-        TheMap.data.selectControl.activate();
+        TheMap.data.map2.setCenter(center, zoom);
 
     },
 

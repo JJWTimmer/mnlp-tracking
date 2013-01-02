@@ -8,6 +8,7 @@ from lionmap.forms import DateFilterForm
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+import os
 
 def kml(request, lion):
     dayago = datetime.now() - timedelta(days=1)
@@ -71,9 +72,25 @@ def last_positions(request):
 
     return render_to_kml("gis/lions.kml", {"lions": positions})
 
+#nginx header used to mask the real file location (x-accel-redirect)
 @login_required
 def retrieve_heatmap(request, file_name):
     response = HttpResponse() # 200 OK
     del response['content-type'] # We'll let the web server guess this.
-    response['X-Accel-Redirect'] = '/static/heatmaps/' + file_name
+    response['X-Accel-Redirect'] = '/static/heatmaps/' + file_name 
     return response
+    
+def retrieve_heatmap_lions(request):
+    lions = []
+    response_data = {}
+    for r,d,f in os.walk(os.path.join(settings.STATIC_ROOT, "heatmaps")):
+        for files in f:
+            if files.endswith(".png"):
+                lions.append(os.path.splitext(os.path.basename(files))[0])
+    response_data['lions'] = lions
+    return HttpResponse(simplejson.dumps(response_data), mimetype="application/json")
+    
+try:
+    from local_views import *
+except ImportError:
+    pass
