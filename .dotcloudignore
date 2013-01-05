@@ -1,10 +1,13 @@
 local_*
 *.pyc
 .gitignore
-.idea/
-mnlp.wpr
-mnlp.wpu
+.sass-cache/
 README.md
 LICENSE
 static/heatmaps/*.png
 static/heatmaps/*.kml
+assets/
+workspace.npp
+Cakefile
+node_modules/
+mnlp/lionmap/fixtures/

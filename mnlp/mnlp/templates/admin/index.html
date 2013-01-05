@@ -3,20 +3,10 @@
 {% load staticfiles %}
 {% block extrastyle %}
     {{ block.super }}
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{% static "js/OpenLayers/theme/default/google.css" %}">
-    <style type="text/css">
-    .smallmap {
-        width: 1024px;
-        height: 512px;
-        border: 1px solid #ccc;
-    }
-
-    #map_canvas2 img {
-        max-width: none;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static "css/generated/mnlp.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "js/OpenLayers/theme/default/google.css" %}" />
 {% endblock %}
 
 {% block coltype %}colMS{% endblock %}
@@ -107,10 +97,10 @@
         <li><a href="#tabs-2">Heatmap</a></li>
     </ul>
     <div id="tabs-1">
-        <div id="map_canvas" class="smallmap"></div>
+        <div id="map_canvas" class="adminmap"></div>
     </div>
     <div id="tabs-2">
-        <div id="map_canvas2" class="smallmap"></div>
+        <div id="map_canvas2" class="adminmap"></div>
     </div>
 </div>
 
@@ -119,13 +109,13 @@
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="http://maps.google.com/maps/api/js?v=3.7&sensor=false"></script>
     <script src="{% static "js/OpenLayers/OpenLayers.js" %}"></script>
-    <script src="{% static "js/mnlp.js" %}"></script>
+    <script src="{% static "js/generated/mnlp.js" %}"></script>
     <script type="text/javascript">
         $(function() {
             $( "#tabs" ).tabs();
         });
-        TheMap.lastpos();
-        TheMap.heatmap();
+        new window.app.maps.LastPosition('map_canvas')
+        new window.app.maps.HeatMap('map_canvas2')
     </script>
 </div>
 {% endblock %}

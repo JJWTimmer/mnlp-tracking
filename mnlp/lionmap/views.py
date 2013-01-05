@@ -30,12 +30,12 @@ def kml(request, lion):
 
 def map(request):
     if request.method == 'POST':
-        form = DateFilterForm(request.POST)
+        form = DateFilterForm(request.user, request.POST)
         if form.is_valid():
             request.session['kml_start'] = form.cleaned_data['start']
             request.session['kml_end'] = form.cleaned_data['end']
     else:
-        form = DateFilterForm()
+        form = DateFilterForm(request.user)
 
     return render(request, "map.html", {'form': form})
 

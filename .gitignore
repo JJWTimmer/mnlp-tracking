@@ -4,5 +4,7 @@
 *.pyc
 local_settings.py
 hidden_settings.py
-mnlp.wpr
-mnlp.wpu
+mnlp/lionmap/static/js/generated/*
+mnlp/lionmap/static/css/generated/*
+.sass-cache/
+node_modules/
