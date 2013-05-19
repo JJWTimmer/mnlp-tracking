@@ -42,5 +42,15 @@ div.olControlAttribution, div.olControlScaleLine {
 
 div.olLayerGoogleCopyright, div.olLayerGoogleV3 {
     position: absolute; 
-    right: 0px !important;;
+    right: 0px !important;
+}
+
+.header {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 24.5px;
+  line-height: 40px;
+  color: inherit;
+  text-rendering: optimizelegibility;
 }

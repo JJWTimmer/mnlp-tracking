@@ -33,7 +33,18 @@
 {% endblock %}
 
 {% block hero %}
-    <div id="map_canvas" class="smallmap"></div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Last Position</a></li>
+            <li><a href="#tabs-2">Heatmap</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div id="map_canvas" class="smallmap"></div>
+        </div>
+        <div id="tabs-2">
+            <div id="map_canvas2" class="smallmap"></div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}
@@ -47,11 +58,6 @@
             <h2>Date Filter</h2>
             <div>
                 {% load crispy_forms_tags %}
-{#                <form action="#" method="post">#}
-{#                    {% csrf_token %}#}
-{#                    {{ form|crispy }}#}
-{#                <input type="submit" value="Filter" />#}
-{#                </form>#}
                 {% crispy form %}
             </div>
         </div>
@@ -61,10 +67,14 @@
 {% block js_bottom %}
 <script src="http://maps.google.com/maps/api/js?v=3.7&sensor=false"></script>
 <script src="{% static "js/OpenLayers/OpenLayers.js" %}"></script>
+<script type="text/javascript" src="{% static "js/heatmap/heatmap.js" %}"></script>
+<script type="text/javascript" src="{% static "js/heatmap/heatmap-openlayers.js" %}"></script>
 <script src="{% static "js/generated/mnlp.js" %}"></script>
 <script type="text/javascript">
+    window.app.vars = {};
 
-    new window.app.maps.PositionCloud('map_canvas')
+    window.app.vars.map1 = new window.app.maps.PositionCloud('map_canvas')
+    window.app.vars.map2 = new window.app.maps.HeatMap('map_canvas2')
 
     jQuery.extend(jQuery.datepicker, { afterShow: function(event) {
             jQuery.datepicker._getInst(event.target).dpDiv.css('z-index', 9999); //necessary else datepicker appears behind map
@@ -76,8 +86,21 @@
                 dateFormat: "dd/mm/yy"
             }
         ).focus(function (event) {
-            jQuery.datepicker.afterShow(event);
+            $.datepicker.afterShow(event);
         });
+
+        $( "#tabs" ).tabs({
+            activate: function( event, ui ) {
+                window.app.vars.map1.map.layers[0].onMapResize();
+                var ct1 = window.app.vars.map1.map.layers[0].getMapObjectCenter();
+                window.app.vars.map1.map.layers[0].setMapObjectCenter(ct1, 12);
+
+                window.app.vars.map2.map.layers[0].onMapResize();
+                var ct2 = window.app.vars.map2.map.layers[0].getMapObjectCenter();
+                window.app.vars.map2.map.layers[0].setMapObjectCenter(ct2, 12);
+            }
+        });
+
     });
 </script>
 {% endblock %}
