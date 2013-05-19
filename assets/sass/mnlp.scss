@@ -22,7 +22,7 @@
     border: 1px solid #ccc;
 }
 
-#map_canvas2 img {
+#map_canvas2 img, #map_canvas3 img {
     max-width: none;
 }
 
@@ -38,4 +38,9 @@ div.olControlAttribution, div.olControlScaleLine {
 
 .layersDiv * input {
     margin-top: 0px;
+}
+
+div.olLayerGoogleCopyright, div.olLayerGoogleV3 {
+    position: absolute; 
+    right: 0px !important;;
 }

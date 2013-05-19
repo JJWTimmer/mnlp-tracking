@@ -12,7 +12,7 @@ class app.maps.LastPosition extends app.maps.BaseMap
             i++
           i
 
-        stylemap = new OpenLayers.StyleMap(default: new OpenLayers.Style(
+        stylemap = new OpenLayers.StyleMap('default': new OpenLayers.Style(
             {
                 pointRadius: "${radius}"
                 fillColor: @defaults.colors[getNextId()]

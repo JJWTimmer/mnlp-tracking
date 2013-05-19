@@ -69,7 +69,7 @@ class DropboxAccount(SingletonModel):
     name = models.CharField(max_length=50)
     key = models.CharField(max_length=15, blank=True)
     secret = models.CharField(max_length=15, blank=True)
-    delta = models.CharField(max_length=80, blank=True)
+    delta = models.CharField(max_length=500, blank=True)
 
     def dropbox_link(self):
         return reverse('admin_lionmap_dropboxaccount_link')

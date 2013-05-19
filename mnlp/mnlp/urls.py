@@ -6,30 +6,27 @@ from django.contrib.gis import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'mnlp.views.home', name='home'),
-    # url(r'^mnlp/', include('mnlp.foo.urls')),
+                       # Examples:
+                       # url(r'^$', 'mnlp.views.home', name='home'),
+                       # url(r'^mnlp/', include('mnlp.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                       # Uncomment the admin/doc line below to enable admin documentation:
+                       # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+                       # Uncomment the next line to enable the admin:
+                       url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', 'lionmap.views.map'),
-    url(r'^lions/$', 'lionmap.views.lions'),
-    url(r'^heatmaplions/$', 'lionmap.views.retrieve_heatmap_lions'),
-    url(r'^kml/lion/(?P<lion>\d+)/$', 'lionmap.views.kml'),
-    url(r'^kml/last/$', 'lionmap.views.last_positions'),
-    url(r'^full/$', 'lionmap.views.fullscreen'),
+                       url(r'^$', 'lionmap.views.map'),
+                       url(r'^lions/$', 'lionmap.views.lions'),
+                       url(r'^kml/lion/(?P<lion>\d+)/$', 'lionmap.views.kml'),
+                       url(r'^json/lion/(?P<lion>\d+)/$', 'lionmap.views.positions_to_json'),
+                       url(r'^kml/last/$', 'lionmap.views.last_positions'),
+                       url(r'^full/$', 'lionmap.views.fullscreen'),
 )
 
 try:
     from local_urls import *
+
     urlpatterns += debugpatterns
 except ImportError:
     pass
-	
-urlpatterns += patterns('',
-    url(r'^heatmaps/(?P<file_name>.*)$', 'lionmap.views.retrieve_heatmap'),
-)

@@ -5,4 +5,4 @@ pykml
 pytz
 django-singletons
 South
-/home/dotcloud/current/temp/heatmap.zip
+django-crispy-forms

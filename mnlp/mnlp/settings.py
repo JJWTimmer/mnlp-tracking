@@ -5,9 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 
 # Django settings for mnlp project.
 
-DEBUG = True
-#TEMPLATE_DEBUG = DEBUG
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
 #Overridden in hidden settings
 ADMINS = (
@@ -71,9 +70,9 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Put strings here, like "/home/html/static" or "C:/www/django/static".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -81,7 +80,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 #Overridden in hidden settings
@@ -92,7 +91,7 @@ SECRET_KEY = 'hfor^73w_wi)!0knh$#fsu^4)ktp&amp;lr23-gvcq^$l70x4mj94e'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -114,7 +113,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	os.path.join(PROJECT_ROOT, 'mnlp/templates/'),
+    os.path.join(PROJECT_ROOT, 'mnlp/templates/'),
 )
 
 INSTALLED_APPS = (
@@ -128,9 +127,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-	'django.contrib.gis',
+    'django.contrib.gis',
     'singleton_models',
-	'lionmap',
+    'crispy_forms',
+    'lionmap',
     'south',
 )
 
@@ -162,7 +162,6 @@ LOGGING = {
         },
     }
 }
-
 
 try:
     from hidden_settings import *

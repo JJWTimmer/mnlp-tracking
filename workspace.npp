@@ -2,13 +2,13 @@
     <Project name="mnlp">
         <Folder name="assets">
             <Folder name="coffee">
-                <File name="assets\coffee\mnlp.coffee" />
                 <Folder name="maps">
                     <File name="assets\coffee\maps\basemap.coffee" />
                     <File name="assets\coffee\maps\heatmap.coffee" />
                     <File name="assets\coffee\maps\lastposition.coffee" />
                     <File name="assets\coffee\maps\positioncloud.coffee" />
                 </Folder>
+                <File name="assets\coffee\defaults.coffee" />
             </Folder>
             <Folder name="sass">
                 <File name="assets\sass\mnlp.scss" />

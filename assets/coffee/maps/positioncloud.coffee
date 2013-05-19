@@ -24,7 +24,7 @@ class app.maps.PositionCloud extends app.maps.BaseMap
                     }
                 )
                 stylemap = new OpenLayers.StyleMap(
-                    default: style
+                    'default': style
                     select:
                         fillColor: "#8aeeef"
                         strokeColor: "#32a8a9"

@@ -1,6 +1,6 @@
 import os
 from dropbox import client, session
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import NoArgsCommand, CommandError
 from _kmz import KMZFile
 from lionmap.models import DropboxAccount
 
@@ -32,7 +32,7 @@ class Command(NoArgsCommand):
             print "Please link the application to the dropbox account first, using the Admin interface."
             return
 
-        if dropbox_account.delta == '':
+        if dropbox_account.delta is None or dropbox_account.delta == '':
             delta = cl.delta()
             dropbox_account.delta = delta['cursor']
             dropbox_account.save()
@@ -40,27 +40,40 @@ class Command(NoArgsCommand):
             delta = cl.delta(dropbox_account.delta)
             dropbox_account.delta = delta['cursor']
             dropbox_account.save()
-        self.process_deltas(delta, cl)
-
-    def process_deltas(self, delta, dropbox_client):
-        for i in range(0, len(delta['entries'])):
-            try:
-                if delta['entries'][i][1] is None:
-                    continue
-
-                fname = delta['entries'][i][0]
-
-                if not (fname.endswith('.kml') or fname.endswith('.kmz')):
-                    continue
-
-                print fname
-
-                dbfile = dropbox_client.get_file(delta['entries'][i][0]).read()
-
-                kmx = KMZFile(dbfile)
-                if kmx.valid:
-                    kmx.save_positions()
-            except Exception, err:
-                print "error retrieving file %s\n%s" % (delta['entries'][i][0], err)
+        entries = self.process_delta(delta, cl)
+        self.process_files(entries, cl)
+        
+    def process_delta(self, delta, dropbox_client):
+        entries = [
+            name
+            for name, metadata in delta['entries']
+            if (not metadata is None)
+            and (not metadata['is_dir'])
+            and (
+                name.endswith('.kml')
+                or name.endswith('.kmz')
+                )
+        ]
         if delta['has_more']:
-            self.process_deltas(dropbox_client.delta(), dropbox_client)
+            try:
+                entries += self.process_delta(dropbox_client.delta(), dropbox_client)
+            except Exception, err:
+                print "Error getting more data from Dropbox:"
+                print err
+                print "---"
+                
+        return entries
+
+    def process_files(self, file_list, dropbox_client):
+            for file in file_list:
+                try:
+                    print file
+                    dbfile = dropbox_client.get_file(file).read()
+
+                    kmx = KMZFile(dbfile)
+                    if kmx.valid:
+                        kmx.save_positions()
+                except Exception, err:
+                    print "Error with %s:" % file
+                    print err
+                    print "---"

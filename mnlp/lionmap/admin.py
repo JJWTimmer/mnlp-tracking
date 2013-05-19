@@ -73,6 +73,7 @@ class DropboxAdmin(SingletonModelAdmin):
                 dropbox.name=dropbox_user
                 dropbox.key=access_token.key
                 dropbox.secret=access_token.secret
+                dropbox.delta=''
                 dropbox.save()
             except Exception, err:
                 self.message_user(request, "There was an error saving:\n%s." % err)

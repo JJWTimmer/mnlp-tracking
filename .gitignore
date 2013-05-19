@@ -8,3 +8,5 @@ mnlp/lionmap/static/js/generated/*
 mnlp/lionmap/static/css/generated/*
 .sass-cache/
 node_modules/
+.idea/
+MNLP.iml

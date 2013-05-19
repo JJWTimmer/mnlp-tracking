@@ -4,5 +4,4 @@ from django.conf import settings
 import os
 
 debugpatterns = patterns('',
-    url(r'^heatmaps/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.STATIC_ROOT, 'heatmaps')}),
 )
