@@ -1,9 +1,9 @@
 import os
 from dropbox import client, session
 from django.core.management.base import NoArgsCommand, CommandError
-from _kmz import KMZFile
+from _streaming_kml import KMZFile
 from lionmap.models import DropboxAccount
-
+import tempfile
 
 class Command(NoArgsCommand):
     help = 'Processes all new kml/kmz files in dropbox'
@@ -68,12 +68,26 @@ class Command(NoArgsCommand):
             for file in file_list:
                 try:
                     print file
-                    dbfile = dropbox_client.get_file(file).read()
+                    tfile = tempfile.NamedTemporaryFile(mode='wb', delete=False)
 
-                    kmx = KMZFile(dbfile)
-                    if kmx.valid:
-                        kmx.save_positions()
+                    dropbox_reponse = dropbox_client.get_file(file)
+
+                    while True:
+                        data = dropbox_reponse.read(1024)
+                        if not data:
+                            break
+                        tfile.write(data)
+
+                    tfile.close()
+
+                    kmx = KMZFile(tfile.name)
+                    kmx.parse_positions()
                 except Exception, err:
                     print "Error with %s:" % file
                     print err
                     print "---"
+                finally:
+                    try:
+                        os.unlink(tfile.name)
+                    except:
+                        pass

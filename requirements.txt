@@ -1,8 +1,8 @@
 Django==1.4.2
 psycopg2
 https://www.dropbox.com/static/developers/dropbox-python-sdk-1.5.1.zip
-pykml
 pytz
 django-singletons
 South
 django-crispy-forms
+lxml

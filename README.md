@@ -30,3 +30,6 @@ Create a dotCloud account and an application. Push this directory to dotCloud wi
 You can login to `http://yourapp-youruser.dotcloud.com/admin` with the admin:password combination. There, link the dropbox account. Every whole hour, the application will now collect the KML/KMZ files from dropbox and process the positions. Check `./jobs/crontab` for the command and frequency.
 
 **Do not forget to change the password of the admin account!**
+
+## References ##
+- http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
