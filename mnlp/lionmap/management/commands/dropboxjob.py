@@ -1,6 +1,6 @@
 import os
 from dropbox import client, session
-from django.core.management.base import NoArgsCommand, CommandError
+from django.core.management.base import NoArgsCommand
 from _streaming_kml import KMZFile
 from lionmap.models import DropboxAccount
 import tempfile
@@ -78,6 +78,7 @@ class Command(NoArgsCommand):
                             break
                         tfile.write(data)
 
+                    dropbox_reponse.close()
                     tfile.close()
 
                     kmx = KMZFile(tfile.name)

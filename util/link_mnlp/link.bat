@@ -1,0 +1,1 @@
+junction "C:\Programmer\GPS_Plus\GPS Data" "C:\Documents and Settings\Niels\Dokumenter\Dropbox\Apps\MNLP\GPS Data"
