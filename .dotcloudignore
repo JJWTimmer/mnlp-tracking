@@ -13,3 +13,4 @@ node_modules/
 mnlp/lionmap/fixtures/
 .idea/
 MNLP.iml
+util
