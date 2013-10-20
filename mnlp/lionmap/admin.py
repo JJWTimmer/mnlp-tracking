@@ -1,4 +1,5 @@
 from django.contrib.gis import admin
+from django.contrib.sites.models import Site
 from models import Lion, Collar, Position, Pride, Tracking, DropboxAccount
 from singleton_models.admin import SingletonModelAdmin
 from dropbox import client, rest, session
@@ -92,9 +93,20 @@ class DropboxAdmin(SingletonModelAdmin):
             'DROPBOX_URL': url, 'CURRENT_DROPBOX_USER': dropbox.name}, current_app=self.admin_site.name)
     link_view.short_description = "Link Dropbox account"
 
+class PositionAdmin(admin.OSMGeoAdmin):
+    list_filter = ('collar','collar__lion')
+    ordering = ('-timestamp',)
+
+class TrackingAdmin(admin.ModelAdmin):
+    list_filter = ('lion',)
+    ordering = ('-start',)
+
+
+admin.site.unregister(Site)
+
 admin.site.register(Lion)
 admin.site.register(Collar)
 admin.site.register(Pride)
-admin.site.register(Tracking)
-admin.site.register(Position, admin.OSMGeoAdmin)
+admin.site.register(Tracking, TrackingAdmin)
+admin.site.register(Position, PositionAdmin)
 admin.site.register(DropboxAccount, DropboxAdmin)
