@@ -22,8 +22,7 @@ def get_positions(request, lion):
             collar__lion__pk=int(lion),
             collar__tracking__start__lte=datetime.now(),
             collar__tracking__end__gte=datetime.now(),
-            timestamp__gte=lowerbound,
-            timestamp__lte=upperbound
+            timestamp__range=(lowerbound, upperbound)
         ).filter(
             timestamp__gte=F('collar__tracking__start'),
             timestamp__lte=F('collar__tracking__end')

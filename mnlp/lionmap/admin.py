@@ -1,4 +1,5 @@
-from django.contrib.gis import admin
+from django.contrib.gis import admin as GeoAdmin
+from django.contrib import admin
 from models import Lion, Collar, Position, Pride, Tracking, DropboxAccount
 from singleton_models.admin import SingletonModelAdmin
 from dropbox import client, rest, session
@@ -9,8 +10,44 @@ from functools import update_wrapper
 import os
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
+from django.db.models import F
 
 csrf_protect_m = method_decorator(csrf_protect)
+
+class LionListFilter(admin.SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = 'lion'
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'lion'
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        lions = Lion.objects.all()
+        lionlist = [(str(lion.id), lion.name) for lion in lions]
+        return lionlist
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        if self.value():
+            print self.value()
+            return queryset.filter(
+                collar__lion__id=self.value(),
+                timestamp__gte=F('collar__tracking__start'),
+                timestamp__lte=F('collar__tracking__end')
+            )
+
 
 class DropboxAdmin(SingletonModelAdmin):
 
@@ -92,8 +129,8 @@ class DropboxAdmin(SingletonModelAdmin):
             'DROPBOX_URL': url, 'CURRENT_DROPBOX_USER': dropbox.name}, current_app=self.admin_site.name)
     link_view.short_description = "Link Dropbox account"
 
-class PositionAdmin(admin.OSMGeoAdmin):
-    list_filter = ('collar','collar__lion')
+class PositionAdmin(GeoAdmin.OSMGeoAdmin):
+    list_filter = ('collar',LionListFilter)
     ordering = ('-timestamp',)
 
 class TrackingAdmin(admin.ModelAdmin):
