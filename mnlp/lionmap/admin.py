@@ -1,5 +1,4 @@
 from django.contrib.gis import admin
-from django.contrib.sites.models import Site
 from models import Lion, Collar, Position, Pride, Tracking, DropboxAccount
 from singleton_models.admin import SingletonModelAdmin
 from dropbox import client, rest, session
@@ -100,9 +99,6 @@ class PositionAdmin(admin.OSMGeoAdmin):
 class TrackingAdmin(admin.ModelAdmin):
     list_filter = ('lion',)
     ordering = ('-start',)
-
-
-admin.site.unregister(Site)
 
 admin.site.register(Lion)
 admin.site.register(Collar)
