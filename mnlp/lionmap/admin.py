@@ -43,7 +43,8 @@ class LionListFilter(admin.SimpleListFilter):
         if self.value():
             print self.value()
             return queryset.filter(
-                collar__lion__id=self.value(),
+                collar__lion__pk=int(self.value()),
+                collar__tracking__lion__pk=int(self.value()),
                 timestamp__gte=F('collar__tracking__start'),
                 timestamp__lte=F('collar__tracking__end')
             )

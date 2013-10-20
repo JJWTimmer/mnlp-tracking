@@ -20,6 +20,7 @@ def get_positions(request, lion):
 
     return Position.objects.filter(
             collar__lion__pk=int(lion),
+            collar__tracking__lion__pk=int(lion),
             collar__tracking__start__lte=datetime.now(),
             collar__tracking__end__gte=datetime.now(),
             timestamp__range=(lowerbound, upperbound)
