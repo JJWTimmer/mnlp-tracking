@@ -7,8 +7,7 @@ from lionmap.models import Lion, Position
 from lionmap.forms import DateFilterForm
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-import os
+from django.db.models import F
 import json
 
 
@@ -20,12 +19,15 @@ def get_positions(request, lion):
     upperbound = request.session['kml_end'] if 'kml_end' in request.session else threedaysago
 
     return Position.objects.filter(
-        collar__lion__pk=int(lion),
-        collar__tracking__start__lte=datetime.now(),
-        collar__tracking__end__gte=datetime.now(),
-        timestamp__gte=lowerbound,
-        timestamp__lte=upperbound
-    )
+            collar__lion__pk=int(lion),
+            collar__tracking__start__lte=datetime.now(),
+            collar__tracking__end__gte=datetime.now(),
+            timestamp__gte=lowerbound,
+            timestamp__lte=upperbound
+        ).filter(
+            timestamp__gte=F('collar__tracking__start'),
+            timestamp__lte=F('collar__tracking__end')
+        )
 
 
 def positions_to_json(request, lion):
@@ -78,7 +80,9 @@ def last_positions(request):
             last_pos = Position.objects.filter(
                 collar__lion__pk=lion.pk,
                 collar__tracking__start__lte=datetime.now(),
-                collar__tracking__end__gte=datetime.now()
+                collar__tracking__end__gte=datetime.now(),
+                timestamp__gte=F('collar__tracking__start'),
+                timestamp__lte=F('collar__tracking__end')
             ).latest('timestamp')
 
             positions.append((lion.name, Position.objects.filter(pk=last_pos.pk).get().timestamp,
