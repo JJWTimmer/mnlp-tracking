@@ -1,4 +1,4 @@
-import os, json, sys
+import os
 
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
@@ -7,6 +7,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 10 * 60  # seconds for timeout
 
 #Overridden in hidden settings
 ADMINS = (
