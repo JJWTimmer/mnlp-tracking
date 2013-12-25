@@ -1,9 +1,12 @@
 import os
+import tempfile
+
 from dropbox import client, session
 from django.core.management.base import NoArgsCommand
+
 from _streaming_kml import KMZFile
 from lionmap.models import DropboxAccount
-import tempfile
+
 
 class Command(NoArgsCommand):
     help = 'Processes all new kml/kmz files in dropbox'
@@ -42,17 +45,17 @@ class Command(NoArgsCommand):
             dropbox_account.save()
         entries = self.process_delta(delta, cl)
         self.process_files(entries, cl)
-        
+
     def process_delta(self, delta, dropbox_client):
         entries = [
             name
             for name, metadata in delta['entries']
             if (not metadata is None)
-            and (not metadata['is_dir'])
+               and (not metadata['is_dir'])
             and (
-                name.endswith('.kml')
-                or name.endswith('.kmz')
-                )
+                   name.endswith('.kml')
+                   or name.endswith('.kmz')
+               )
         ]
         if delta['has_more']:
             try:
@@ -61,34 +64,34 @@ class Command(NoArgsCommand):
                 print "Error getting more data from Dropbox:"
                 print err
                 print "---"
-                
+
         return entries
 
     def process_files(self, file_list, dropbox_client):
-            for file in file_list:
+        for mfile in file_list:
+            try:
+                print mfile
+                tfile = tempfile.NamedTemporaryFile(mode='wb', delete=False)
+
+                dropbox_reponse = dropbox_client.get_file(mfile)
+
+                while True:
+                    data = dropbox_reponse.read(1024)
+                    if not data:
+                        break
+                    tfile.write(data)
+
+                dropbox_reponse.close()
+                tfile.close()
+
+                kmx = KMZFile(tfile.name)
+                kmx.parse_positions()
+            except Exception, err:
+                print "Error with %s:" % mfile
+                print err
+                print "---"
+            finally:
                 try:
-                    print file
-                    tfile = tempfile.NamedTemporaryFile(mode='wb', delete=False)
-
-                    dropbox_reponse = dropbox_client.get_file(file)
-
-                    while True:
-                        data = dropbox_reponse.read(1024)
-                        if not data:
-                            break
-                        tfile.write(data)
-
-                    dropbox_reponse.close()
-                    tfile.close()
-
-                    kmx = KMZFile(tfile.name)
-                    kmx.parse_positions()
-                except Exception, err:
-                    print "Error with %s:" % file
-                    print err
-                    print "---"
-                finally:
-                    try:
-                        os.unlink(tfile.name)
-                    except:
-                        pass
+                    os.unlink(tfile.name)
+                except:
+                    pass

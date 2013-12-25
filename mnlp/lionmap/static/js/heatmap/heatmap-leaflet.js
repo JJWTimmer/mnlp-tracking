@@ -10,17 +10,17 @@
  *  - QuadTree: https://github.com/jsmarkus/ExamplesByMesh/tree/master/JavaScript/QuadTree
  */
 
- L.TileLayer.HeatMap = L.TileLayer.Canvas.extend({
-	options: {
+L.TileLayer.HeatMap = L.TileLayer.Canvas.extend({
+    options: {
         debug: false,
         opacity: 0.9,  // opactity is between 0 and 1, not in percent
         radius: {
             value: 20,
             absolute: false  // true: radius in meters, false: radius in pixels
         }
-	},
+    },
 
-	initialize: function (options, data) {
+    initialize: function (options, data) {
         var self = this;
         L.Util.setOptions(this, options);
 
@@ -59,7 +59,7 @@
         g.fillRect(max / 2 - 5, max / 2 - 5, 10, 10);
         g.strokeText(ctx.tilePoint.x + ' ' + ctx.tilePoint.y + ' ' + ctx.zoom, max / 2 - 30, max / 2 - 10);
 
-        this._drawPoint(ctx, [0,0]);
+        this._drawPoint(ctx, [0, 0]);
     },
 
     /*
@@ -81,8 +81,8 @@
         var proto = this._canvasProto = L.DomUtil.create('div', 'leaflet-tile');
 
         var tileSize = this.options.tileSize;
-        proto.style.width = tileSize+"px";
-        proto.style.height = tileSize+"px";
+        proto.style.width = tileSize + "px";
+        proto.style.height = tileSize + "px";
         proto.width = tileSize;
         proto.height = tileSize;
     },
@@ -90,11 +90,11 @@
     /**
      * Inserts data into quadtree and redraws heatmap canvas
      */
-    setData: function(dataset) {
+    setData: function (dataset) {
         var self = this;
         var latLngs = [];
         this._maxValue = 0;
-        dataset.forEach(function(d) {
+        dataset.forEach(function (d) {
             latLngs.push(new L.LatLng(d.lat, d.lon));
             self._maxValue = Math.max(self._maxValue, d.value);
         });
@@ -102,7 +102,7 @@
 
         this._quad = new QuadTree(this._boundsToQuery(this._bounds), false, 6, 6);
 
-        dataset.forEach(function(d) {
+        dataset.forEach(function (d) {
             self._quad.insert({
                 x: d.lon,
                 y: d.lat,
@@ -131,12 +131,12 @@
     /**
      * Creates a query for the quadtree from bounds
      */
-    _boundsToQuery: function(bounds) {
+    _boundsToQuery: function (bounds) {
         return {
             x: bounds.getSouthWest().lng,
             y: bounds.getSouthWest().lat,
-            width: bounds.getNorthEast().lng-bounds.getSouthWest().lng,
-            height: bounds.getNorthEast().lat-bounds.getSouthWest().lat
+            width: bounds.getNorthEast().lng - bounds.getSouthWest().lng,
+            height: bounds.getNorthEast().lat - bounds.getSouthWest().lat
         };
     },
 
@@ -181,7 +181,7 @@
         // The radius of a circle can be either absolute in pixels or in meters
         // The radius in pixels is not the same on the whole map.
         if (options.radius.absolute) {
-            var centerPoint = nwPoint.add(new L.Point(tileSize/2, tileSize/2));
+            var centerPoint = nwPoint.add(new L.Point(tileSize / 2, tileSize / 2));
             var p = this._map.unproject(centerPoint);
             radiusValue = this.projectLatlngs(p);
         }
@@ -201,7 +201,7 @@
         sePoint = sePoint.add(pad);
 
         var bounds = new L.LatLngBounds(this._map.unproject(sePoint), this._map.unproject(nwPoint));
-        this._quad.retrieveInBounds(this._boundsToQuery(bounds)).forEach(function(obj) {
+        this._quad.retrieveInBounds(this._boundsToQuery(bounds)).forEach(function (obj) {
             localXY = self._tilePoint(ctx, [obj.x, obj.y]);
             value = obj.value;
             pointsInTile.push({

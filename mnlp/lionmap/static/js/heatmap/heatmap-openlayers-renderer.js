@@ -14,9 +14,9 @@
  */
 
 /**
- * Class: OpenLayers.Renderer.Heatmap 
+ * Class: OpenLayers.Renderer.Heatmap
  * A renderer based on https://github.com/pa7/heatmap.js
- * 
+ *
  * Inherits:
  *  - <OpenLayers.Renderer>
  */
@@ -48,7 +48,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
 
     /**
      * APIProperty: heatmapConfig
-     * {Object} See documentation at 
+     * {Object} See documentation at
      *      https://github.com/pa7/heatmap.js/blob/master/README.md.
      *
      *      Note that the following heatmap.js options are ignored: element,
@@ -75,14 +75,14 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      * {Object} Internal object of feature/style pairs for use in redrawing the layer.
      */
     features: null,
-    
+
     /**
      * Property: pendingRedraw
      * {Boolean} The renderer needs a redraw call to render features added while
      *     the renderer was locked.
      */
     pendingRedraw: false,
-    
+
     /**
      * Property: pendingMax
      * {Boolean} The renderer needs calculate max to render features drawed
@@ -97,24 +97,24 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      * containerID - {<String>}
      * options - {Object} Optional properties to be set on the renderer.
      */
-    initialize: function(containerID, options) {
+    initialize: function (containerID, options) {
         OpenLayers.Renderer.prototype.initialize.apply(this, arguments);
 
         var heatmapConfig = OpenLayers.Util.applyDefaults({
                 visible: true,
                 element: this.container
-            }, 
+            },
             this.heatmapConfig || {}
         );
 
         var _weight = this.weight;
         if (!_weight) {
-            this.weight = function() {
+            this.weight = function () {
                 return 0;
             };
         } else if (typeof _weight === 'string') {
-            this.weight = function(feature) {
-                return feature.attributes[_weight] || 0; 
+            this.weight = function (feature) {
+                return feature.attributes[_weight] || 0;
             };
         }
         var hm = h337.create(heatmapConfig);
@@ -126,7 +126,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
         this.pendingMax = false;
         this.max = this.maxStart;
     },
-    
+
     /**
      * Method: setExtent
      * Set the visible part of the layer.
@@ -140,7 +140,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      *     the coordinate range, and the features will not need to be redrawn.
      *     False otherwise.
      */
-    setExtent: function() {
+    setExtent: function () {
         OpenLayers.Renderer.prototype.setExtent.apply(this, arguments);
 
         var mapRadius = this.getResolution() * this.heatmap.get("radius"),
@@ -155,31 +155,31 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
         // always redraw features
         return false;
     },
-    
-    /** 
+
+    /**
      * Method: eraseGeometry
      * Erase a geometry from the renderer. Because the Canvas renderer has
      *     'memory' of the features that it has drawn, we have to remove the
-     *     feature so it doesn't redraw.   
-     * 
+     *     feature so it doesn't redraw.
+     *
      * Parameters:
      * geometry - {<OpenLayers.Geometry>}
      * featureId - {String}
      */
-    eraseGeometry: function(geometry, featureId) {
+    eraseGeometry: function (geometry, featureId) {
         this.eraseFeatures(this.features[featureId][0]);
     },
 
     /**
      * APIMethod: supported
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not the browser supports the renderer class
      */
-    supported: function() {
+    supported: function () {
         return !!window.h337 && OpenLayers.CANVAS_SUPPORTED;
-    },    
-    
+    },
+
     /**
      * Method: setSize
      * Sets the size of the drawing surface.
@@ -187,9 +187,9 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      * Once the size is updated, redraw the canvas.
      *
      * Parameters:
-     * size - {<OpenLayers.Size>} 
+     * size - {<OpenLayers.Size>}
      */
-    setSize: function(size) {
+    setSize: function (size) {
         this.size = size.clone();
         var root = this.root;
         root.style.width = size.w + "px";
@@ -198,22 +198,22 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
         root.height = size.h;
         this.resolution = null;
     },
-    
+
     /**
      * Method: drawFeature
      * Draw the feature. Stores the feature in the features list,
-     * then redraws the layer. 
+     * then redraws the layer.
      *
      * Parameters:
-     * feature - {<OpenLayers.Feature.Vector>} 
-     * style - {<Object>} 
+     * feature - {<OpenLayers.Feature.Vector>}
+     * style - {<Object>}
      *
      * Returns:
      * {Boolean} The feature has been drawn completely.  If the feature has no
      *     geometry, undefined will be returned.  If the feature is not rendered
      *     for other reasons, false will be returned.
      */
-    drawFeature: function(feature, style) {
+    drawFeature: function (feature, style) {
         var rendered;
         if (feature.geometry) {
             style = this.applyDefaultSymbolizer(style || feature.style);
@@ -265,10 +265,10 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      * Method: getLocalXY
      * Transform geographic coordinates into pixel xy
      *
-     * Parameters: 
+     * Parameters:
      * lacation - {<OpenLayers.LonLat>}
      */
-    getLocalXY: function(lacation) {
+    getLocalXY: function (lacation) {
         var resolution = this.getResolution();
         var extent = this.extent;
         var x = ((lacation.lon - this.featureDx) / resolution + (-extent.left / resolution));
@@ -279,8 +279,8 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
     /**
      * Method: clear
      * Clear all vectors from the renderer.
-     */    
-    clear: function() {
+     */
+    clear: function () {
         var hm = this.heatmap;
         hm.set("height", this.root.height);
         hm.set("width", this.root.width);
@@ -292,35 +292,35 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
 
     /**
      * Method: getFeatureIdFromEvent
-     * Returns a feature id from an event on the renderer.  
-     * 
+     * Returns a feature id from an event on the renderer.
+     *
      * Parameters:
-     * evt - {<OpenLayers.Event>} 
+     * evt - {<OpenLayers.Event>}
      *
      * Returns:
      * {<OpenLayers.Feature.Vector} A feature or undefined.  This method returns
      *     a feature instead of a feature id to avoid an unnecessary lookup on
      *     the layer.
      */
-    getFeatureIdFromEvent: function(evt) {
+    getFeatureIdFromEvent: function (evt) {
         // TODO: select?
         var featureId, feature;
-        return feature; 
+        return feature;
     },
-    
+
     /**
-     * Method: eraseFeatures 
+     * Method: eraseFeatures
      * This is called by the layer to erase features; removes the feature from
      *     the list, then redraws the layer.
-     * 
+     *
      * Parameters:
-     * features - {Array(<OpenLayers.Feature.Vector>)} 
+     * features - {Array(<OpenLayers.Feature.Vector>)}
      */
-    eraseFeatures: function(features) {
-        if(!(OpenLayers.Util.isArray(features))) {
+    eraseFeatures: function (features) {
+        if (!(OpenLayers.Util.isArray(features))) {
             features = [features];
         }
-        for(var i=0; i<features.length; ++i) {
+        for (var i = 0; i < features.length; ++i) {
             delete this.features[features[i].id];
         }
         if (!this.locked) {
@@ -332,7 +332,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
     /**
      * Method: calculateMax
      */
-    calculateMax: function() {
+    calculateMax: function () {
         var max = this.maxStart;
         if (this.map) {
             var layer = this.map.getLayer(this.container.id);
@@ -359,7 +359,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
      *     with things once they're drawn, to remove them, for example, so
      *     instead we have to just clear everything and draw from scratch.
      */
-    redraw: function() {
+    redraw: function () {
         if (!this.locked) {
             var height = this.root.height;
             var width = this.root.width;
@@ -368,22 +368,24 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
             hm.set("height", height);
             hm.set("width", width);
             hm.resize();
-            
+
             var labelMap = [];
             var feature, bounds, style;
             var worldBounds = (this.map.baseLayer &&
-                                             this.map.baseLayer.wrapDateLine) && 
-                              this.map.getMaxExtent();
+                this.map.baseLayer.wrapDateLine) &&
+                this.map.getMaxExtent();
             var data = [],
                 item = 0,
                 weight,
                 getWeight = this.weight,
                 features = [];
-            
-            // What is the layer?, 
+
+            // What is the layer?,
             //      we need to use all features although not in the map window.
             for (var id in this.features) {
-                if (!this.features.hasOwnProperty(id)) { continue; }
+                if (!this.features.hasOwnProperty(id)) {
+                    continue;
+                }
                 item = this.features[id];
                 feature = item[0];
                 bounds = feature.geometry.getBounds();
@@ -391,7 +393,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
                 var pt = this.getLocalXY(bounds.getCenterLonLat());
                 var p0 = pt[0];
                 var p1 = pt[1];
-                if(!isNaN(p0) && !isNaN(p1)) {
+                if (!isNaN(p0) && !isNaN(p1)) {
                     weight = item[1];
                     data.push({x: p0, y: p1, count: weight});
                 }
@@ -400,7 +402,7 @@ OpenLayers.Renderer.Heatmap = OpenLayers.Class(OpenLayers.Renderer, {
                 data: data,
                 max: this.max
             });
-        }    
+        }
     },
 
     CLASS_NAME: "OpenLayers.Renderer.Heatmap"

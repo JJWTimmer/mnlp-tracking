@@ -5,10 +5,10 @@ import os
 
 from lxml import etree
 from django.core.exceptions import ObjectDoesNotExist
+import pytz
 
 from lionmap.models import Collar
 from lionmap.models import Position
-import pytz
 
 
 class KMZFile(object):
@@ -31,8 +31,10 @@ class KMZFile(object):
             raise Exception("Error checking if zip: %s" % e)
 
     def parse_positions(self):
-        doc_context = etree.iterparse(self.filename, events=('end',), tag='{http://earth.google.com/kml/2.2}Document', encoding='utf-8')
-        context = etree.iterparse(self.filename, events=('end',), tag='{http://earth.google.com/kml/2.2}Placemark', encoding='utf-8')
+        doc_context = etree.iterparse(self.filename, events=('end',), tag='{http://earth.google.com/kml/2.2}Document',
+                                      encoding='utf-8')
+        context = etree.iterparse(self.filename, events=('end',), tag='{http://earth.google.com/kml/2.2}Placemark',
+                                  encoding='utf-8')
 
         collarname = None
         xp = etree.XPath("//*[local-name()='name']/text()")
@@ -87,7 +89,7 @@ def make_fix(elem, collar):
     coords = xp3(elem)
     desc = xp4(elem)
 
-    if not(len(num) > 0 and 'Fix' in num[0]):
+    if not (len(num) > 0 and 'Fix' in num[0]):
         return
 
     fix = Fix(num[0], ts[0], coords[0], desc[0])
@@ -96,7 +98,9 @@ def make_fix(elem, collar):
         try:
             position = Position.objects.get(collar=collar, timestamp=fix.timestamp)
         except ObjectDoesNotExist:
-            position = Position.objects.create(collar=collar, timestamp=fix.timestamp, coordinate="POINT(%s %s)" % (fix.latitude, fix.longitude), altitude=fix.altitude)
+            position = Position.objects.create(collar=collar, timestamp=fix.timestamp,
+                                               coordinate="SRID=4326;POINT(%s %s)" % (fix.latitude, fix.longitude),
+                                               altitude=fix.altitude)
             position.save()
 
 

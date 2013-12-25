@@ -1,18 +1,23 @@
+from functools import update_wrapper
+import os
+
 from django.contrib.gis import admin as GeoAdmin
 from django.contrib import admin
-from models import Lion, Collar, Position, Pride, Tracking, DropboxAccount
+from dropbox.session import OAuthToken
 from singleton_models.admin import SingletonModelAdmin
-from dropbox import client, rest, session
+from dropbox import client, session
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from django.db import transaction
-from functools import update_wrapper
-import os
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.db.models import F
 
+from models import Lion, Collar, Position, Pride, Tracking, DropboxAccount
+
+
 csrf_protect_m = method_decorator(csrf_protect)
+
 
 class LionListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
@@ -50,33 +55,33 @@ class LionListFilter(admin.SimpleListFilter):
 
 
 class DropboxAdmin(SingletonModelAdmin):
-
     def get_link_url(self):
         return reverse('admin:%s_%s_link' % info, current_app=self.admin_site.name)
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
+
             return update_wrapper(wrapper, view)
 
         info = self.model._meta.app_label, self.model._meta.module_name
 
         urlpatterns = patterns('',
-            url(r'^history/$',
-                wrap(self.history_view),
-                {'object_id': '1'},
-                name='%s_%s_history' % info),
-            url(r'^link/$',
-                wrap(self.link_view),
-                {},
-                name='%s_%s_link' % info),
-            url(r'^$',
-                wrap(self.change_view),
-                {'object_id': '1'},
-                name='%s_%s_change' % info),
+                               url(r'^history/$',
+                                   wrap(self.history_view),
+                                   {'object_id': '1'},
+                                   name='%s_%s_history' % info),
+                               url(r'^link/$',
+                                   wrap(self.link_view),
+                                   {},
+                                   name='%s_%s_link' % info),
+                               url(r'^$',
+                                   wrap(self.change_view),
+                                   {'object_id': '1'},
+                                   name='%s_%s_change' % info),
         )
         return urlpatterns
 
@@ -94,11 +99,13 @@ class DropboxAdmin(SingletonModelAdmin):
         if 'apply' in request.POST:
             access_token = None
             try:
-                rq_token = request.session['dropbox_request_token']
+                rq_token = OAuthToken(request.session['dropbox_request_token_key'],
+                                      request.session['dropbox_request_token_secret'])
                 # This will fail if the user didn't visit the above URL and hit 'Allow'
                 access_token = sess.obtain_access_token(rq_token)
             except Exception, err:
-                self.message_user(request, "There was an error linking, did you visit the URL and clicked Accept?\n%s." % err)
+                self.message_user(request,
+                                  "There was an error linking, did you visit the URL and clicked Accept?\n%s." % err)
                 return HttpResponseRedirect(request.get_full_path())
 
             cl = client.DropboxClient(sess)
@@ -107,10 +114,10 @@ class DropboxAdmin(SingletonModelAdmin):
 
             try:
                 dropbox = DropboxAccount.objects.get(pk=1)
-                dropbox.name=dropbox_user
-                dropbox.key=access_token.key
-                dropbox.secret=access_token.secret
-                dropbox.delta=''
+                dropbox.name = dropbox_user
+                dropbox.key = access_token.key
+                dropbox.secret = access_token.secret
+                dropbox.delta = ''
                 dropbox.save()
             except Exception, err:
                 self.message_user(request, "There was an error saving:\n%s." % err)
@@ -120,22 +127,27 @@ class DropboxAdmin(SingletonModelAdmin):
             return HttpResponseRedirect('/admin')
         else:
             request_token = sess.obtain_request_token()
-            request.session['dropbox_request_token'] = request_token
+            request.session['dropbox_request_token_key'] = request_token.key
+            request.session['dropbox_request_token_secret'] = request_token.secret
             url = sess.build_authorize_url(request_token)
 
             dropbox = DropboxAccount.objects.get(pk=1)
 
         return TemplateResponse(request, 'admin/link_account.html', {
             'DROPBOX_URL': url, 'CURRENT_DROPBOX_USER': dropbox.name}, current_app=self.admin_site.name)
+
     link_view.short_description = "Link Dropbox account"
 
+
 class PositionAdmin(GeoAdmin.OSMGeoAdmin):
-    list_filter = ('collar',LionListFilter)
+    list_filter = ('collar', LionListFilter)
     ordering = ('-timestamp',)
+
 
 class TrackingAdmin(admin.ModelAdmin):
     list_filter = ('lion',)
     ordering = ('-start',)
+
 
 admin.site.register(Lion)
 admin.site.register(Collar)

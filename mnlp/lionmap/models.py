@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 from singleton_models.models import SingletonModel
 
 
@@ -15,7 +16,7 @@ class Lion(models.Model):
     ageDate = models.DateField()
     pride = models.ForeignKey('Pride')
     collars = models.ManyToManyField('Collar', through='Tracking', blank=True,
-        null=True)
+                                     null=True)
 
     objects = models.GeoManager()  # relation to model with geo data
 
@@ -35,7 +36,7 @@ class Collar(models.Model):
 class Position(models.Model):
     collar = models.ForeignKey('Collar')
     timestamp = models.DateTimeField()
-    coordinate = models.PointField(geography=True)  # default SRID = EPSG:4326 aka WGS84
+    coordinate = models.PointField(geography=True, srid=4326)  # default SRID = EPSG:4326 aka WGS84
     altitude = models.FloatField()
 
     objects = models.GeoManager()
@@ -67,8 +68,8 @@ class Tracking(models.Model):
 
 class DropboxAccount(SingletonModel):
     name = models.CharField(max_length=50)
-    key = models.CharField(max_length=15, blank=True)
-    secret = models.CharField(max_length=15, blank=True)
+    key = models.CharField(max_length=20, blank=True)
+    secret = models.CharField(max_length=20, blank=True)
     delta = models.CharField(max_length=500, blank=True)
 
     def dropbox_link(self):
