@@ -18,6 +18,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

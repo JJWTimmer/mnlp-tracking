@@ -16,8 +16,9 @@ urlpatterns = patterns('',
                        # Uncomment the next line to enable the admin:
                        url(r'^admin/', include(admin.site.urls)),
 
-                       url(r'^$', 'lionmap.views.map'),
+                       url(r'^$', 'lionmap.views.show_map'),
                        url(r'^lions/$', 'lionmap.views.lions'),
+                       url(r'^liondata/$', 'lionmap.views.lion_data'),
                        url(r'^kml/lion/(?P<lion>\d+)/$', 'lionmap.views.kml'),
                        url(r'^json/lion/(?P<lion>\d+)/$', 'lionmap.views.positions_to_json'),
                        url(r'^kml/last/$', 'lionmap.views.last_positions'),
